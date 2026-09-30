@@ -74,11 +74,9 @@ Aplicações que juntam tudo o que foi aprendido (ex.: sistema de cadastro, jogo
 📦 nome-do-repositorio
  ┣ 📁 01-aulas (0 ao 10) 
  ┣ 📁 02-logica-e-estruturas
- ┣ 📁 03-poo (programacao-orientada-a-objetos)
+ ┣ 📁 03-codigos-intermediarios
  ┣ 📁 04-avancado
- ┣ 📁 05-codigos-basicos
- ┣ 📁 exercicios
- ┣ 📁 
+ ┣ 📁 05-codigos-basicos 
  ┗ 📄 README.md
 ```
  
