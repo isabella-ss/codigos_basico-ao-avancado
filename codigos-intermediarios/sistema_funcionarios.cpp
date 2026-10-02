@@ -2,6 +2,7 @@
 #include <string.h>
 
 #define MAX 100
+#define ANO_ATUAL 2026
 
 struct Data {
     int dia;
@@ -23,7 +24,7 @@ void cadastrar(struct Funcionario funcionarios[], int quantidade) {
     int i;
 
     for (i = 0; i < quantidade; i++) {
-        printf("\nFuncionario %d\n", i + 1);
+        printf("\n===== FUNCIONARIO %d =====\n", i + 1);
 
         printf("Nome: ");
         scanf(" %[^\n]", funcionarios[i].nome);
@@ -52,7 +53,9 @@ void cadastrar(struct Funcionario funcionarios[], int quantidade) {
 }
 
 void nascimentoMes(struct Funcionario funcionarios[], int quantidade) {
-    int mes, i;
+    int mes;
+    int i;
+    int encontrou = 0;
 
     printf("Digite o mes: ");
     scanf("%d", &mes);
@@ -64,22 +67,36 @@ void nascimentoMes(struct Funcionario funcionarios[], int quantidade) {
                    funcionarios[i].nascimento.dia,
                    funcionarios[i].nascimento.mes,
                    funcionarios[i].nascimento.ano);
+
+            encontrou = 1;
         }
+    }
+
+    if (!encontrou) {
+        printf("Nenhum funcionario nasceu nesse mes.\n");
     }
 }
 
 void tempoEmpresa(struct Funcionario funcionarios[], int quantidade) {
-    int anos, i;
+    int anos;
+    int i;
+    int encontrou = 0;
 
     printf("Digite a quantidade de anos de empresa: ");
     scanf("%d", &anos);
 
     for (i = 0; i < quantidade; i++) {
-        if (2026 - funcionarios[i].anoEntrada == anos) {
+        if (ANO_ATUAL - funcionarios[i].anoEntrada == anos) {
             printf("Nome: %s | Telefone: %s\n",
                    funcionarios[i].nome,
                    funcionarios[i].telefone);
+
+            encontrou = 1;
         }
+    }
+
+    if (!encontrou) {
+        printf("Nenhum funcionario possui esse tempo de empresa.\n");
     }
 }
 
@@ -94,40 +111,38 @@ void maiorObservacao(struct Funcionario funcionarios[], int quantidade) {
         }
     }
 
-    printf("\nFuncionario com maior observacao:\n");
+    printf("\n===== MAIOR OBSERVACAO =====\n");
     printf("Nome: %s\n", funcionarios[maior].nome);
     printf("Observacao: %s\n", funcionarios[maior].observacoes);
 }
 
 void verificarEmail(struct Funcionario funcionarios[], int quantidade) {
-    char email[100];
-    int i;
+    int numero;
 
-    printf("Digite o e-mail: ");
-    scanf(" %[^\n]", email);
+    printf("Digite o numero do funcionario: ");
+    scanf("%d", &numero);
 
-    for (i = 0; i < quantidade; i++) {
-        if (strcmp(funcionarios[i].email, email) == 0) {
-
-            if (strstr(email, "@") != NULL &&
-                strstr(email, ".com") != NULL) {
-                printf("O e-mail possui @ e .com.\n");
-            } else {
-                printf("O e-mail nao possui @ e .com.\n");
-            }
-
-            return;
-        }
+    if (numero < 1 || numero > quantidade) {
+        printf("Funcionario invalido.\n");
+        return;
     }
 
-    printf("E-mail nao encontrado.\n");
+    if (strchr(funcionarios[numero - 1].email, '@') != NULL &&
+        strstr(funcionarios[numero - 1].email, ".com") != NULL) {
+
+        printf("O e-mail possui @ e .com.\n");
+
+    } else {
+        printf("O e-mail nao possui @ e .com.\n");
+    }
 }
 
 void imprimirTodos(struct Funcionario funcionarios[], int quantidade) {
     int i;
 
     for (i = 0; i < quantidade; i++) {
-        printf("\n--- Funcionario %d ---\n", i + 1);
+        printf("\n===== FUNCIONARIO %d =====\n", i + 1);
+
         printf("Nome: %s\n", funcionarios[i].nome);
         printf("Endereco: %s\n", funcionarios[i].endereco);
         printf("Telefone: %s\n", funcionarios[i].telefone);
@@ -150,7 +165,7 @@ int main() {
     int opcao;
 
     do {
-        printf("\n===== MENU =====\n");
+        printf("\n========== MENU ==========\n");
         printf("1 - Ler quantidade de funcionarios\n");
         printf("2 - Cadastrar funcionarios\n");
         printf("3 - Nascimentos por mes\n");
@@ -159,6 +174,8 @@ int main() {
         printf("6 - Verificar e-mail\n");
         printf("7 - Imprimir todos os funcionarios\n");
         printf("0 - Sair\n");
+        printf("==========================\n");
+
         printf("Opcao: ");
         scanf("%d", &opcao);
 
@@ -171,34 +188,57 @@ int main() {
                 if (quantidade < 1 || quantidade > MAX) {
                     printf("Quantidade invalida.\n");
                     quantidade = 0;
+                } else {
+                    printf("Quantidade cadastrada: %d\n", quantidade);
                 }
                 break;
 
             case 2:
-                if (quantidade == 0)
-                    printf("Informe primeiro a quantidade.\n");
-                else
+                if (quantidade == 0) {
+                    printf("Informe primeiro a quantidade de funcionarios.\n");
+                } else {
                     cadastrar(funcionarios, quantidade);
+                }
                 break;
 
             case 3:
-                nascimentoMes(funcionarios, quantidade);
+                if (quantidade == 0) {
+                    printf("Cadastre os funcionarios primeiro.\n");
+                } else {
+                    nascimentoMes(funcionarios, quantidade);
+                }
                 break;
 
             case 4:
-                tempoEmpresa(funcionarios, quantidade);
+                if (quantidade == 0) {
+                    printf("Cadastre os funcionarios primeiro.\n");
+                } else {
+                    tempoEmpresa(funcionarios, quantidade);
+                }
                 break;
 
             case 5:
-                maiorObservacao(funcionarios, quantidade);
+                if (quantidade == 0) {
+                    printf("Cadastre os funcionarios primeiro.\n");
+                } else {
+                    maiorObservacao(funcionarios, quantidade);
+                }
                 break;
 
             case 6:
-                verificarEmail(funcionarios, quantidade);
+                if (quantidade == 0) {
+                    printf("Cadastre os funcionarios primeiro.\n");
+                } else {
+                    verificarEmail(funcionarios, quantidade);
+                }
                 break;
 
             case 7:
-                imprimirTodos(funcionarios, quantidade);
+                if (quantidade == 0) {
+                    printf("Cadastre os funcionarios primeiro.\n");
+                } else {
+                    imprimirTodos(funcionarios, quantidade);
+                }
                 break;
 
             case 0:
