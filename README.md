@@ -1,5 +1,5 @@
 <div align="center">
-# 🚀 Aprenda C++ do Zero ao Avançado
+# 🚀 Aprenda C++ / C  do Zero ao Avançado
  
 ### Lógica de programação • Fundamentos • Programação Orientada a Objetos
  
